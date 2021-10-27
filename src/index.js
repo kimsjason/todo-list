@@ -1,6 +1,7 @@
 import { taskForm } from './task-form';
 import { todo, todoItem } from './todo';
 import { domItem } from './dom';
+import './main.css';
 
 const main = todo();
 

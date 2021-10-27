@@ -1,0 +1,8 @@
+.task-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.task-form input {
+    width: 250px;
+}
