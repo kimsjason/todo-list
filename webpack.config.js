@@ -34,6 +34,10 @@ module.exports = {
                         outputPath: 'images'
                     }
                 }
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource',
             }
         ]
     }
