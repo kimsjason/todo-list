@@ -1,45 +1,65 @@
+const DOMTasks = () => {
+    const tasks = document.querySelector('.tasks');
+    const properties = ['title', 'projectName', 'description', 'dueDate', 'priority', 'complete', 'hashtags'];
 
+    function createTaskElement(task, tasklist) {
+        // create element for new task
+        const taskElement = document.createElement('li');
+        taskElement.classList.add('task');
 
-const domItem = (item) => {
-    // list item element
-    const listItem = document.createElement('li');
-    listItem.classList.add('todo-item');
+        // create property elements for each task
+        properties.forEach(property => {
+            const propertyElement = createPropertyElement('div', undefined, property, 'task-property', task);
+            taskElement.appendChild(propertyElement);
+        });
 
-    // list item property elements
-    const title = document.createElement('div');
-    const projectName = document.createElement('div');
-    const description = document.createElement('div');
-    const dueDate = document.createElement('div');
-    const priority = document.createElement('div');
-    const status = document.createElement('div');
-    const hashtags = document.createElement('div');
+        // create button to remove task
+        const removeTask = document.createElement('button');
+        removeTask.classList.add('remove-task');        
+        removeTask.addEventListener('click', () => {
+            tasklist.removeTask(task);
+            displayTasks(tasklist);
+        });
 
-    title.classList.add('title');
-    projectName.classList.add('project-name');
-    description.classList.add('description');
-    dueDate.classList.add('due-date');
-    priority.classList.add('priority');
-    status.classList.add('status');
-    hashtags.classList.add('hashtags');
+        taskElement.appendChild(removeTask);
 
-    title.innerHTML = item.title;
-    projectName.innerHTML = item.projectName;
-    description.innerHTML = item.description;
-    dueDate.innerHTML = item.dueDate;
-    priority.innerHTML = item.priority;
-    status.innerHTML = item.status;
-    hashtags.innerHTML = item.hashtags;
+        return taskElement;
+    }
 
-    listItem.appendChild(title);
-    listItem.appendChild(projectName);
-    listItem.appendChild(description);
-    listItem.appendChild(dueDate);
-    listItem.appendChild(priority);
-    listItem.appendChild(status);
-    listItem.appendChild(hashtags);
+    function createPropertyElement(element, type, property, className, task) {
+        const propertyElement = document.createElement(element);
+        propertyElement.type = type;
+        propertyElement.name = property;
+        propertyElement.classList.add(className);
+        propertyElement.placeholder = property;
 
-    return listItem;
+        if (task) {
+            propertyElement.innerHTML = task[property];
+        }
+
+        return propertyElement;
+    }
+
+    function clearTaskDisplay() {
+        tasks.innerHTML = '';
+    }
+
+    function displayTasks(tasklist) {
+        clearTaskDisplay();
+        tasklist.tasklist.forEach(task => {
+            const taskElement = createTaskElement(task, tasklist);
+            tasks.prepend(taskElement);
+        });
+        console.log(tasklist.tasklist);
+    }
+    
+    return {
+        createTaskElement,
+        clearTaskDisplay,
+        createPropertyElement,
+        displayTasks
+    };
 }
 
 
-export { domItem };
+export { DOMTasks };
