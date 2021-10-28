@@ -1,8 +1,77 @@
+/* https://coolors.co/006ba6-0496ff-ffbc42-d81159-8f2d56 */
+@font-face {
+    font-family: Roboto;
+    src: url(./Roboto/Roboto-Medium.ttf)
+}
+/* general */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    font-family: Roboto;
+    color: rgb(80, 80, 80);
+}
+
+/* sidebar */
+.sidebar {
+    flex: 1;
+    padding: 50px 25px;
+    background-color: #f5f6f8;
+}
+
+.sidebar div {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    
+}
+
+.sidebar span {
+    padding: 0 10px;
+}
+
+.sidebar a {
+    display: inline-block;
+    padding: 0 20px 0 0;
+    text-decoration: none;
+}
+
+#star {
+    color: #FFBC42;
+}
+
+#date-range {
+    color: #D81159;
+}
+
+#expand-more {
+    color: #0496FF;
+}
+
+/* form */
+.content {
+    flex: 5;
+}
+
 .task-form {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+
 }
 
 .task-form input {
-    width: 250px;
+    width: 150px;
+}
+
+.task {
+    display: flex;
+}
+
+.task div {
+    padding: 10px;
 }
