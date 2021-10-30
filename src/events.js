@@ -15,7 +15,7 @@ const Events = (dom, tasklist) => {
                 taskForm.children[6].value  // hashtags            
             );
             tasklist.addTask(task);
-            dom.displayTasks();
+            //dom.displayTasks();
         });
     }
 
@@ -25,7 +25,7 @@ const Events = (dom, tasklist) => {
         button.addEventListener('click', () => {
             tasklist.removeTask(task);
             console.log('hi');
-            dom.displayTasks();
+            //dom.displayTasks();
         });
     //}
 
@@ -35,8 +35,6 @@ const Events = (dom, tasklist) => {
         })
     }
 
-
-    
     return {
         addTaskEvent,
         addTodayEvent,
