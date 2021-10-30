@@ -1,62 +1,116 @@
-const DOMTasks = () => {
+const DOMTasks = (tasklist, events) => {
     const tasks = document.querySelector('.tasks');
     const properties = ['title', 'projectName', 'description', 'dueDate', 'priority', 'complete', 'hashtags'];
 
-    function createTaskElement(task, tasklist) {
+    function createDiv(classList, innerHTML) {
+        const div = document.createElement('div');
+        div.classList.add(classList);
+        div.innerHTML = innerHTML;
+
+        return div;
+    }
+
+    function createInput(type, classList, value) {
+        const input = document.createElement('input');
+        input.type = type;
+        input.classList.add(classList);
+        input.value = value;
+
+        return input;
+    }
+
+    function createFormProperties() {
+        const formProperties = [];
+        
+        properties.forEach(property => {
+            const propertyElement = document.createElement('input');
+
+            propertyElement.type = 'text';
+            propertyElement.name = property;
+            propertyElement.classList.add('task-form-property');
+            propertyElement.placeholder = property;
+            
+            formProperties.push(propertyElement);
+        });
+
+        return formProperties;
+    }
+
+    function createTaskForm() {
+        // task form
+        const taskForm = createDiv('task-form', 'New Task');
+
+        // task form properties
+        const formProperties = createFormProperties();
+        formProperties.forEach(property => {
+            taskForm.appendChild(property);
+        });
+
+        // add new task button
+        const addTaskButton = createInput('button', 'add-task', 'Add Task');
+
+        // event listener
+        events.addTaskEvent(addTaskButton, tasklist, taskForm);
+        taskForm.appendChild(addTaskButton);
+
+        return taskForm;
+    }
+
+    function createTaskProperties(task) {
+        const taskProperties = [];
+        
+        properties.forEach(property => {
+            const propertyElement = document.createElement('div');
+            propertyElement.classList.add('task-property');
+            propertyElement.innerHTML = task[property];
+            
+            taskProperties.push(propertyElement);
+        });
+
+        return taskProperties;
+    }
+
+    function createTaskElement(task) {
         // create element for new task
         const taskElement = document.createElement('li');
         taskElement.classList.add('task');
 
         // create property elements for each task
-        properties.forEach(property => {
-            const propertyElement = createPropertyElement('div', undefined, property, 'task-property', task);
-            taskElement.appendChild(propertyElement);
+        const taskProperties = createTaskProperties(task);
+        taskProperties.forEach(property => {
+            taskElement.appendChild(property);
         });
 
         // create button to remove task
-        const removeTask = document.createElement('button');
-        removeTask.classList.add('remove-task');        
-        removeTask.addEventListener('click', () => {
-            tasklist.removeTask(task);
-            displayTasks(tasklist);
-        });
+        const removeTaskButton = createInput('button', 'remove-task', 'Remove Task');
+        events.removeTaskEvent(removeTaskButton, task, tasklist);
 
-        taskElement.appendChild(removeTask);
+        taskElement.appendChild(removeTaskButton);
 
         return taskElement;
-    }
-
-    function createPropertyElement(element, type, property, className, task) {
-        const propertyElement = document.createElement(element);
-        propertyElement.type = type;
-        propertyElement.name = property;
-        propertyElement.classList.add(className);
-        propertyElement.placeholder = property;
-
-        if (task) {
-            propertyElement.innerHTML = task[property];
-        }
-
-        return propertyElement;
     }
 
     function clearTaskDisplay() {
         tasks.innerHTML = '';
     }
 
-    function displayTasks(tasklist) {
+    function displayTasks() {
         clearTaskDisplay();
-        tasklist.tasklist.forEach(task => {
-            const taskElement = createTaskElement(task, tasklist);
+        tasklist.getTasklist().forEach(task => {
+            const taskElement = createTaskElement(task);
             tasks.prepend(taskElement);
         });
-        console.log(tasklist.tasklist);
+        console.log('display', tasklist);
     }
     
     return {
+        createDiv,
+        createInput,
+        createFormProperties,
+        createTaskForm,
+        createTaskProperties,
         createTaskElement,
         clearTaskDisplay,
-        createPropertyElement,
         displayTasks
     };
 }

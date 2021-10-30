@@ -1,8 +1,8 @@
 import { Task } from "./tasks";
-import { DOMTasks } from "./dom";
+//import { DOMTasks } from "./dom";
 
-const Events = () => {
-    const dom = DOMTasks();
+const Events = (dom, tasklist) => {
+    //const dom = DOMTasks();
     function addTaskEvent(button, tasklist, taskForm) {
         button.addEventListener('click', () => {
             const task = Task(
@@ -15,19 +15,31 @@ const Events = () => {
                 taskForm.children[6].value  // hashtags            
             );
             tasklist.addTask(task);
-            dom.displayTasks(tasklist);
+            dom.displayTasks();
         });
     }
 
-    // function removeTaskEvent(button, task, tasklist) {
-    //     button.addEventListener('click', () => {
-    //         tasklist.removeTask(task);
-    //         dom.displayTasks(tasklist);
-    //     });
-    // }
+    //function removeTaskEvent(task, tasklist) {
+        const button = document.querySelector('.remove-task')
+        console.log(button);
+        button.addEventListener('click', () => {
+            tasklist.removeTask(task);
+            console.log('hi');
+            dom.displayTasks();
+        });
+    //}
+
+    function addTodayEvent(button, tasklist) {
+        button.addEventListener('click', () => {
+            //dom.displayTasks(tasklist.getTodaysTasks());
+        })
+    }
+
+
     
     return {
         addTaskEvent,
+        addTodayEvent,
         //removeTaskEvent
     }
 }
