@@ -4,7 +4,7 @@ const Events = (dom, tasklist) => {
     const content = document.querySelector('.content');
     content.addEventListener('click', function(e) {
         if (e.target && e.target.className == 'remove-task') {
-            tasklist.removeTask(e.target.reference);
+            tasklist.removeTask(e.target.parentElement.taskObject);            
         } else if (e.target && e.target.className == 'add-task') {
             const taskForm = document.querySelector('.task-form');
             const task = Task(
@@ -17,15 +17,20 @@ const Events = (dom, tasklist) => {
                 taskForm.children[6].value  // hashtags            
             );
             tasklist.addTask(task);
-        }
-        dom.displayTasks();
+        } 
+
+        dom.displayTasks(tasklist.getTasklist());
     })
 
-    function addTodayEvent(button, tasklist) {
-        button.addEventListener('click', () => {
-            //dom.displayTasks(tasklist.getTodaysTasks());
-        })
-    }
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.addEventListener('click', function(e) {
+        if (e.target && e.target.className == 'today') {
+            console.log(tasklist.getTasklist());
+            dom.displayTasks(tasklist.getTodaysTasks());
+        } else if (e.target && e.target.className == 'upcoming') {
+            dom.displayTasks(tasklist.getUpcomingTasks());
+        }
+    }) 
 }
 
 export { Events };
