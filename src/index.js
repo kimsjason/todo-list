@@ -5,8 +5,7 @@ import './main.css';
 
 // instantiate new task form
 const tasklist = Tasklist();
-const events = Events();
-const dom = DOMTasks(tasklist, events);
+const dom = DOMTasks(tasklist);
 
 // create task form
 const taskform = dom.createTaskForm();
@@ -16,6 +15,7 @@ content.appendChild(taskform);
 // initialize example tasks
 tasklist.createExampleTasks();
 dom.displayTasks();
+Events(dom, tasklist);
 
 
 

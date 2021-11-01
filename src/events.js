@@ -1,10 +1,12 @@
 import { Task } from "./tasks";
-//import { DOMTasks } from "./dom";
 
 const Events = (dom, tasklist) => {
-    //const dom = DOMTasks();
-    function addTaskEvent(button, tasklist, taskForm) {
-        button.addEventListener('click', () => {
+    const content = document.querySelector('.content');
+    content.addEventListener('click', function(e) {
+        if (e.target && e.target.className == 'remove-task') {
+            tasklist.removeTask(e.target.reference);
+        } else if (e.target && e.target.className == 'add-task') {
+            const taskForm = document.querySelector('.task-form');
             const task = Task(
                 taskForm.children[0].value, // title
                 taskForm.children[1].value, // project name
@@ -15,30 +17,14 @@ const Events = (dom, tasklist) => {
                 taskForm.children[6].value  // hashtags            
             );
             tasklist.addTask(task);
-            //dom.displayTasks();
-        });
-    }
-
-    //function removeTaskEvent(task, tasklist) {
-        const button = document.querySelector('.remove-task')
-        console.log(button);
-        button.addEventListener('click', () => {
-            tasklist.removeTask(task);
-            console.log('hi');
-            //dom.displayTasks();
-        });
-    //}
+        }
+        dom.displayTasks();
+    })
 
     function addTodayEvent(button, tasklist) {
         button.addEventListener('click', () => {
             //dom.displayTasks(tasklist.getTodaysTasks());
         })
-    }
-
-    return {
-        addTaskEvent,
-        addTodayEvent,
-        //removeTaskEvent
     }
 }
 

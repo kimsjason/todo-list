@@ -50,7 +50,7 @@ const DOMTasks = (tasklist, events) => {
         const addTaskButton = createInput('button', 'add-task', 'Add Task');
 
         // event listener
-        events.addTaskEvent(addTaskButton, tasklist, taskForm);
+        // events.addTaskEvent(addTaskButton, tasklist, taskForm);
         taskForm.appendChild(addTaskButton);
 
         return taskForm;
@@ -83,7 +83,7 @@ const DOMTasks = (tasklist, events) => {
 
         // create button to remove task
         const removeTaskButton = createInput('button', 'remove-task', 'Remove Task');
-        events.removeTaskEvent(removeTaskButton, task, tasklist);
+        //events.removeTaskEvent(removeTaskButton, task, tasklist);
 
         taskElement.appendChild(removeTaskButton);
 
@@ -98,9 +98,9 @@ const DOMTasks = (tasklist, events) => {
         clearTaskDisplay();
         tasklist.getTasklist().forEach(task => {
             const taskElement = createTaskElement(task);
+            taskElement.taskObject = task;
             tasks.prepend(taskElement);
         });
-        console.log('display', tasklist);
     }
     
     return {
