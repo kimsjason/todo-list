@@ -14,7 +14,7 @@ content.appendChild(taskform);
 
 // initialize example tasks
 tasklist.createExampleTasks();
-dom.displayTasks();
+dom.displayTasks(tasklist.getTasklist());
 Events(dom, tasklist);
 
 

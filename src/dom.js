@@ -1,5 +1,6 @@
-const DOMTasks = (tasklist, events) => {
+const DOMTasks = (tasklist) => {
     const tasks = document.querySelector('.tasks');
+    const content = document.querySelector('.content');
     const properties = ['title', 'projectName', 'description', 'dueDate', 'priority', 'complete', 'hashtags'];
 
     function createDiv(classList, innerHTML) {
@@ -48,10 +49,8 @@ const DOMTasks = (tasklist, events) => {
 
         // add new task button
         const addTaskButton = createInput('button', 'add-task', 'Add Task');
-
-        // event listener
-        // events.addTaskEvent(addTaskButton, tasklist, taskForm);
         taskForm.appendChild(addTaskButton);
+        content.appendChild(taskForm);
 
         return taskForm;
     }
@@ -83,8 +82,6 @@ const DOMTasks = (tasklist, events) => {
 
         // create button to remove task
         const removeTaskButton = createInput('button', 'remove-task', 'Remove Task');
-        //events.removeTaskEvent(removeTaskButton, task, tasklist);
-
         taskElement.appendChild(removeTaskButton);
 
         return taskElement;
@@ -94,9 +91,9 @@ const DOMTasks = (tasklist, events) => {
         tasks.innerHTML = '';
     }
 
-    function displayTasks() {
+    function displayTasks(tasklist) {
         clearTaskDisplay();
-        tasklist.getTasklist().forEach(task => {
+        tasklist.forEach(task => {
             const taskElement = createTaskElement(task);
             taskElement.taskObject = task;
             tasks.prepend(taskElement);
