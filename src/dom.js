@@ -1,7 +1,20 @@
 const DOMTasks = (tasklist) => {
-    const tasks = document.querySelector('.tasks');
     const content = document.querySelector('.content');
+    const taskContent = document.querySelector('.task-content');
     const properties = ['title', 'projectName', 'description', 'dueDate', 'priority', 'complete', 'hashtags'];
+    const sidebar = document.querySelector('.sidebar');
+    const dropdown = document.querySelector('.dropdown');
+
+    function createExampleTasks(tasklist) {
+        const examples = document.createElement('div');
+        examples.classList.add('examples')
+        tasklist.forEach(task => {
+            const taskElement = createTaskElement(task);
+            examples.appendChild(taskElement);
+        })
+
+        return examples;
+    }
 
     function createDiv(classList, innerHTML) {
         const div = document.createElement('div');
@@ -18,6 +31,17 @@ const DOMTasks = (tasklist) => {
         input.value = value;
 
         return input;
+    }
+
+    function updateDropdown(projects) {
+        dropdown.classList.toggle('hidden');
+        dropdown.innerHTML = '';
+        Object.keys(projects).forEach(project => {
+            const dropdownItems = createDiv('dropdown-items', project);
+            dropdown.appendChild(dropdownItems);
+        });
+
+        sidebar.appendChild(dropdown);
     }
 
     function createFormProperties() {
@@ -84,31 +108,52 @@ const DOMTasks = (tasklist) => {
         const removeTaskButton = createInput('button', 'remove-task', 'Remove Task');
         taskElement.appendChild(removeTaskButton);
 
+        // store object reference in html task element
+        taskElement.taskObject = task;
+
         return taskElement;
     }
-
-    function clearTaskDisplay() {
-        tasks.innerHTML = '';
-    }
-
-    function displayTasks(tasklist) {
-        clearTaskDisplay();
+    
+    function createTasks(tasklist) {
+        const tasks = document.createElement('div');
+        tasks.classList.add('tasks');
+        
         tasklist.forEach(task => {
             const taskElement = createTaskElement(task);
             taskElement.taskObject = task;
-            tasks.prepend(taskElement);
+            tasks.appendChild(taskElement);
         });
+
+        return tasks;
+    }
+
+    function clearTaskDisplay() {
+        taskContent.innerHTML = '';
+    }
+
+    function displayTasks(tasks) {
+        taskContent.prepend(tasks);
+    }
+
+    function showView(tasklist) {
+        const tasks = createTasks(tasklist);
+        clearTaskDisplay();
+        displayTasks(tasks);
     }
     
     return {
+        createExampleTasks,
         createDiv,
         createInput,
+        updateDropdown,
         createFormProperties,
         createTaskForm,
         createTaskProperties,
         createTaskElement,
+        createTasks,
         clearTaskDisplay,
-        displayTasks
+        displayTasks,
+        showView
     };
 }
 
