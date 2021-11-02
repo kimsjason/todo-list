@@ -1,4 +1,4 @@
-/* https://coolors.co/006ba6-0496ff-ffbc42-d81159-8f2d56 */
+/* https://coolors.co/4d9de0-e15554-e1bc29-3bb273-7768ae */
 @font-face {
     font-family: Roboto;
     src: url(./Roboto/Roboto-Medium.ttf)
@@ -17,6 +17,8 @@ body {
     color: rgb(80, 80, 80);
 }
 
+
+
 /* sidebar */
 .sidebar {
     flex: 1;
@@ -28,40 +30,52 @@ body {
     display: flex;
     align-items: center;
     padding: 10px 0;
-    
+    cursor: pointer;
 }
 
-.sidebar span {
+.sidebar div.hidden {
+    display: none;
+}
+
+.sidebar div span {
     padding: 0 10px;
+    pointer-events: none;
 }
-
-.sidebar a {
-    display: inline-block;
-    padding: 0 20px 0 0;
-    text-decoration: none;
+#home {
+    color: #3bb273;
 }
 
 #star {
-    color: #FFBC42;
+    color: #e1bc29;
 }
 
-#date-range {
-    color: #D81159;
+#upcoming {
+    color: #e15554;
 }
 
-#expand-more {
-    color: #0496FF;
+#projects {
+    color: #4d9de0;
 }
 
-/* form */
+.dropdown {
+    display: flex;
+    flex-direction: column;
+}
+
+/* content */
 .content {
     flex: 5;
+    padding: 50px;
 }
+
+.tasks-header {
+    display: flex;
+}
+
 
 .task-form {
     display: flex;
     flex-wrap: wrap;
-
 }
 
 .task-form input {
