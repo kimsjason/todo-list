@@ -2,9 +2,28 @@ import { Task } from "./tasks";
 
 const Events = (dom, tasklist) => {
     const content = document.querySelector('.content');
+    const headerName = document.querySelector('.header-name');
+    const sidebar = document.querySelector('.sidebar');
+
+    sidebar.addEventListener('click', function(e) {
+        if (e.target && e.target.className == 'home') {
+            headerName.innerHTML = 'Home';
+            dom.showView(tasklist.getTasklist());
+        } else if (e.target && e.target.className == 'today') {
+            headerName.innerHTML = 'Today';
+            dom.showView(tasklist.getTodaysTasks());
+        } else if (e.target && e.target.className == 'upcoming') {
+            headerName.innerHTML = 'Upcoming';
+            dom.showView(tasklist.getUpcomingTasks());
+        } else if (e.target && e.target.className == 'projects') {
+            headerName.innerHTML = 'Projects';
+            dom.updateDropdown(tasklist.getProjects());
+        }
+    });
+
     content.addEventListener('click', function(e) {
         if (e.target && e.target.className == 'remove-task') {
-            tasklist.removeTask(e.target.parentElement.taskObject);            
+            tasklist.removeTask(e.target.parentElement.taskObject);
         } else if (e.target && e.target.className == 'add-task') {
             const taskForm = document.querySelector('.task-form');
             const task = Task(
@@ -17,20 +36,26 @@ const Events = (dom, tasklist) => {
                 taskForm.children[6].value  // hashtags            
             );
             tasklist.addTask(task);
+            tasklist.addProject(task.projectName, task);
+            console.log(tasklist.getProjects());
         } 
-
-        dom.displayTasks(tasklist.getTasklist());
+        
+        switch (headerName.innerHTML) {
+            case 'Home':
+                dom.showView(tasklist.getTasklist());
+                break;
+            case 'Today':
+                dom.showView(tasklist.getTodaysTasks());
+                break;
+            case 'Upcoming':
+                dom.showView(tasklist.getUpcomingTasks());
+                break;
+            case 'Projects':
+                //dom.displayTasks(tasklist.getProjects());
+        }
     })
 
-    const sidebar = document.querySelector('.sidebar');
-    sidebar.addEventListener('click', function(e) {
-        if (e.target && e.target.className == 'today') {
-            console.log(tasklist.getTasklist());
-            dom.displayTasks(tasklist.getTodaysTasks());
-        } else if (e.target && e.target.className == 'upcoming') {
-            dom.displayTasks(tasklist.getUpcomingTasks());
-        }
-    }) 
+
 }
 
 export { Events };
