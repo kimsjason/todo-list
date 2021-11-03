@@ -18,6 +18,9 @@ const Events = (dom, tasklist) => {
         } else if (e.target && e.target.className == 'projects') {
             headerName.innerHTML = 'Projects';
             dom.updateDropdown(tasklist.getProjects());
+        } else if (e.target && e.target.className == 'dropdown-items') {
+            headerName.innerHTML = e.target.innerHTML;
+            dom.showView(tasklist.getProjects()[e.target.innerHTML]);
         }
     });
 
