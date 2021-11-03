@@ -1,5 +1,5 @@
 import { Task } from "./tasks";
-
+import { parseISO } from 'date-fns';
 const Events = (dom, tasklist) => {
     const content = document.querySelector('.content');
     const headerName = document.querySelector('.header-name');
@@ -26,18 +26,19 @@ const Events = (dom, tasklist) => {
             tasklist.removeTask(e.target.parentElement.taskObject);
         } else if (e.target && e.target.className == 'add-task') {
             const taskForm = document.querySelector('.task-form');
+            const dueDate = taskForm.children[3].value.split('/');
+            
             const task = Task(
                 taskForm.children[0].value, // title
                 taskForm.children[1].value, // project name
                 taskForm.children[2].value, // description
-                taskForm.children[3].value, // due date
+                parseISO(`${dueDate[2]}-${dueDate[0]}-${dueDate[1]}`), // due date
                 taskForm.children[4].value, // priority
                 taskForm.children[5].value, // complete
                 taskForm.children[6].value  // hashtags            
             );
             tasklist.addTask(task);
             tasklist.addProject(task.projectName, task);
-            console.log(tasklist.getProjects());
         } 
         
         switch (headerName.innerHTML) {
