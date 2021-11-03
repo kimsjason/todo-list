@@ -1,20 +1,13 @@
-const DOMTasks = (tasklist) => {
+import { format } from 'date-fns';
+
+const DOMTasks = () => {
     const content = document.querySelector('.content');
     const taskContent = document.querySelector('.task-content');
     const properties = ['title', 'projectName', 'description', 'dueDate', 'priority', 'complete', 'hashtags'];
     const sidebar = document.querySelector('.sidebar');
     const dropdown = document.querySelector('.dropdown');
 
-    function createExampleTasks(tasklist) {
-        const examples = document.createElement('div');
-        examples.classList.add('examples')
-        tasklist.forEach(task => {
-            const taskElement = createTaskElement(task);
-            examples.appendChild(taskElement);
-        })
-
-        return examples;
-    }
+    displayTaskForm(createTaskForm())
 
     function createDiv(classList, innerHTML) {
         const div = document.createElement('div');
@@ -79,14 +72,25 @@ const DOMTasks = (tasklist) => {
         return taskForm;
     }
 
+    function displayTaskForm(taskform) {
+        content.appendChild(taskform);
+    }
+
     function createTaskProperties(task) {
         const taskProperties = [];
         
         properties.forEach(property => {
             const propertyElement = document.createElement('div');
             propertyElement.classList.add('task-property');
-            propertyElement.innerHTML = task[property];
-            
+
+            // format dates from ISO to mm/dd/yyyy
+            if (property == 'dueDate') {
+                console.log(task[property]);
+                propertyElement.innerHTML = format(task[property], 'MM/dd/yyyy');
+            } else {
+                propertyElement.innerHTML = task[property];
+            }
+
             taskProperties.push(propertyElement);
         });
 
@@ -142,12 +146,12 @@ const DOMTasks = (tasklist) => {
     }
     
     return {
-        createExampleTasks,
         createDiv,
         createInput,
         updateDropdown,
         createFormProperties,
         createTaskForm,
+        displayTaskForm,
         createTaskProperties,
         createTaskElement,
         createTasks,
