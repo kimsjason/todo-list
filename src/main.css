@@ -21,7 +21,7 @@ body {
 
 /* sidebar */
 .sidebar {
-    flex: 1;
+    flex: 2;
     padding: 50px 25px;
     background-color: #f5f6f8;
 }
@@ -65,12 +65,52 @@ body {
 /* content */
 .content {
     flex: 5;
-    padding: 50px;
+    padding: 10% 15%;
 }
 
 .tasks-header {
     display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 2px solid #4d9de0;
 }
+
+.task-content {
+    padding: 0 10px;
+}
+
+.task {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+    border-bottom: 1px solid #4d9de0;
+}
+
+.main-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-properties {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.main-content div {
+    pointer-events: none;
+}
+
+.detail-properties {
+
+}
+
+.task .hidden {
+    display: none;
+}
+
 
 
 .task-form {
@@ -80,12 +120,4 @@ body {
 
 .task-form input {
     width: 150px;
-}
-
-.task {
-    display: flex;
-}
-
-.task div {
-    padding: 10px;
 }
