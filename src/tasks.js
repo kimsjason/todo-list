@@ -1,11 +1,11 @@
 import { isFuture, isToday, parseISO } from "date-fns";
 
 // in future - think about factory function inheritance
-const Task = (title, projectName, description, dueDate, priority, complete, hashtags) => {
+const Task = (title, project, description, dueDate, priority, complete, hashtags) => {
 
     return {
         title,
-        projectName,
+        project,
         description,
         dueDate,
         priority,
@@ -26,7 +26,7 @@ const Tasklist = () => {
     const projects = {};
 
     tasklist.forEach(example => {
-        addProject(example.projectName, example);
+        addProject(example.project, example);
     });
     
 
@@ -59,16 +59,16 @@ const Tasklist = () => {
         return upcomingTasks;
     }
 
-    function addProject(projectName, task) {
-        if (projects[projectName]) {
-            projects[projectName].push(task);
+    function addProject(project, task) {
+        if (projects[project]) {
+            projects[project].push(task);
         } else {
-            projects[projectName] = [task];
+            projects[project] = [task];
         }
     }
 
-    function removeProject(projectName) {
-        delete projects[projectName];
+    function removeProject(project) {
+        delete projects[project];
 
         // for later: remove tasks under this project in tasklist (for loop in this module with removeTask function?)
     }
