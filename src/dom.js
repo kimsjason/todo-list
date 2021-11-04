@@ -3,7 +3,8 @@ import { format } from 'date-fns';
 const DOMTasks = () => {
     const content = document.querySelector('.content');
     const taskContent = document.querySelector('.task-content');
-    const properties = ['title', 'projectName', 'description', 'dueDate', 'priority', 'complete', 'hashtags'];
+    const properties = ['title', 'project', 'description', 'dueDate', 'priority', 'hashtags'];
+    
     const sidebar = document.querySelector('.sidebar');
     const dropdown = document.querySelector('.dropdown');
 
@@ -83,8 +84,9 @@ const DOMTasks = () => {
         const mainProperties = document.createElement('div');
         const detailProperties = document.createElement('div');
         mainProperties.classList.add('main-properties');
-        detailProperties.classList.add('detail-properties');
-        
+        detailProperties.classList.add('detail-properties', 'hidden');
+
+
         properties.forEach(property => {
             const propertyElement = document.createElement('div');
             if (property == 'title') {
@@ -94,7 +96,7 @@ const DOMTasks = () => {
                 propertyElement.innerHTML = format(task[property], 'MM/dd/yyyy');
                 mainProperties.appendChild(propertyElement);
             } else {
-                propertyElement.innerHTML = task[property];
+                propertyElement.innerHTML = `${property[0].toUpperCase() + property.slice(1)}: ${task[property]}`;
                 detailProperties.appendChild(propertyElement);
             }
 
@@ -106,19 +108,39 @@ const DOMTasks = () => {
     }
 
     function createTaskElement(task) {
+        const taskProperties = createTaskProperties(task);
+
         // create element for new task
         const taskElement = document.createElement('li');
         taskElement.classList.add('task');
+        
+        // main content container
+        const mainContent = document.createElement('div');
+        mainContent.classList.add('main-content');
 
-        // create property elements for each task
-        const taskProperties = createTaskProperties(task);
-        taskProperties.forEach(property => {
-            taskElement.appendChild(property);
-        });
+        // add completion status checkbox to container
+        const completionStatus = document.createElement('input');
+        completionStatus.classList.add('completion-status');
+        completionStatus.type = 'checkbox';
+        mainContent.appendChild(completionStatus);
 
-        // create button to remove task
-        const removeTaskButton = createInput('button', 'remove-task', 'Remove Task');
-        taskElement.appendChild(removeTaskButton);
+        // add main properties to container
+        mainContent.appendChild(taskProperties[0]); // main properties
+
+        // add edit and delete icons to container
+        const editTaskButton = document.createElement('span');
+        const removeTaskButton = document.createElement('span');
+        editTaskButton.classList.add('material-icons', 'edit-task');
+        removeTaskButton.classList.add('material-icons', 'remove-task');
+        editTaskButton.innerHTML = 'edit';
+        removeTaskButton.innerHTML = 'delete_outline';
+        mainContent.appendChild(editTaskButton);
+        mainContent.appendChild(removeTaskButton);
+
+        // add main content container to task element
+        taskElement.appendChild(mainContent);
+        // add detailed properties to task element (initially hidden)
+        taskElement.appendChild(taskProperties[1]);
 
         // store object reference in html task element
         taskElement.taskObject = task;

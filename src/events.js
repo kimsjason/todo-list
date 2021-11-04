@@ -2,7 +2,6 @@ import { Task } from "./tasks";
 import { parseISO } from 'date-fns';
 
 const Events = (dom, tasklist) => {
-    const content = document.querySelector('.content');
     const headerName = document.querySelector('.header-name');
     const sidebar = document.querySelector('.sidebar');
     const taskContent = document.querySelector('.task-content');
@@ -42,7 +41,7 @@ const Events = (dom, tasklist) => {
                 taskForm.children[6].value  // hashtags            
             );
             tasklist.addTask(task);
-            tasklist.addProject(task.projectName, task);
+            tasklist.addProject(task.project, task);
         } 
         
         switch (headerName.innerHTML) {
@@ -61,11 +60,23 @@ const Events = (dom, tasklist) => {
     });
 
     taskContent.addEventListener('click', function(e) {
-        console.log('taskcontent was clicked');
-        if (e.target && e.target.className == 'main-properties') {
+        if (e.target && e.target.className == 'main-content') {
             e.target.nextElementSibling.classList.toggle('hidden');
-        } else if (e.target && e.target.className == 'remove-task') {
-            tasklist.removeTask(e.target.parentElement.taskObject);
+        } else if (e.target && e.target.classList.contains('remove-task')) {
+            tasklist.removeTask(e.target.parentElement.parentElement.taskObject);
+            switch (headerName.innerHTML) {
+                case 'Home':
+                    dom.showView(tasklist.getTasklist());
+                    break;
+                case 'Today':
+                    dom.showView(tasklist.getTodaysTasks());
+                    break;
+                case 'Upcoming':
+                    dom.showView(tasklist.getUpcomingTasks());
+                    break;
+                case 'Projects':
+                    //dom.displayTasks(tasklist.getProjects());
+            }
         }
     });
     
