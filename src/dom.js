@@ -27,7 +27,8 @@ const DOMTasks = () => {
     }
 
     function updateDropdown(projects) {
-        dropdown.classList.toggle('hidden');
+        hideElement(dropdown);
+        //dropdown.classList.toggle('hidden');
         dropdown.innerHTML = '';
         Object.keys(projects).forEach(project => {
             const dropdownItems = createDiv('dropdown-items', project);
@@ -79,19 +80,26 @@ const DOMTasks = () => {
     function createTaskProperties(task) {
         const taskProperties = [];
         
+        const mainProperties = document.createElement('div');
+        const detailProperties = document.createElement('div');
+        mainProperties.classList.add('main-properties');
+        detailProperties.classList.add('detail-properties');
+        
         properties.forEach(property => {
             const propertyElement = document.createElement('div');
-            propertyElement.classList.add('task-property');
-
-            // format dates from ISO to mm/dd/yyyy
-            if (property == 'dueDate') {
-                console.log(task[property]);
+            if (property == 'title') {
+                propertyElement.innerHTML = task[property];
+                mainProperties.appendChild(propertyElement);
+            } else if (property == 'dueDate') {
                 propertyElement.innerHTML = format(task[property], 'MM/dd/yyyy');
+                mainProperties.appendChild(propertyElement);
             } else {
                 propertyElement.innerHTML = task[property];
+                detailProperties.appendChild(propertyElement);
             }
 
-            taskProperties.push(propertyElement);
+            taskProperties.push(mainProperties);
+            taskProperties.push(detailProperties);
         });
 
         return taskProperties;
@@ -145,6 +153,11 @@ const DOMTasks = () => {
         displayTasks(tasks);
     }
     
+    function hideElement(element) {
+        element.classList.toggle('hidden');
+        return element;
+    }
+
     return {
         createDiv,
         createInput,
@@ -157,7 +170,9 @@ const DOMTasks = () => {
         createTasks,
         clearTaskDisplay,
         displayTasks,
-        showView
+        showView,
+        hideElement
+    
     };
 }
 

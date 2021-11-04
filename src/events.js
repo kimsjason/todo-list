@@ -1,9 +1,12 @@
 import { Task } from "./tasks";
 import { parseISO } from 'date-fns';
+
 const Events = (dom, tasklist) => {
     const content = document.querySelector('.content');
     const headerName = document.querySelector('.header-name');
     const sidebar = document.querySelector('.sidebar');
+    const taskContent = document.querySelector('.task-content');
+    const taskform = document.querySelector('.task-form');
 
     sidebar.addEventListener('click', function(e) {
         if (e.target && e.target.className == 'home') {
@@ -24,10 +27,8 @@ const Events = (dom, tasklist) => {
         }
     });
 
-    content.addEventListener('click', function(e) {
-        if (e.target && e.target.className == 'remove-task') {
-            tasklist.removeTask(e.target.parentElement.taskObject);
-        } else if (e.target && e.target.className == 'add-task') {
+    taskform.addEventListener('click', function(e) {
+        if (e.target && e.target.className == 'add-task') {
             const taskForm = document.querySelector('.task-form');
             const dueDate = taskForm.children[3].value.split('/');
             
@@ -57,7 +58,17 @@ const Events = (dom, tasklist) => {
             case 'Projects':
                 //dom.displayTasks(tasklist.getProjects());
         }
-    })
+    });
+
+    taskContent.addEventListener('click', function(e) {
+        console.log('taskcontent was clicked');
+        if (e.target && e.target.className == 'main-properties') {
+            e.target.nextElementSibling.classList.toggle('hidden');
+        } else if (e.target && e.target.className == 'remove-task') {
+            tasklist.removeTask(e.target.parentElement.taskObject);
+        }
+    });
+    
 
 
 }
