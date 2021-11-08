@@ -1,4 +1,5 @@
-import { format } from 'date-fns';
+import { add, format } from 'date-fns';
+import { Task } from './tasks';
 
 const DOMTasks = () => {
     const sidebar = document.querySelector('.sidebar');
@@ -82,7 +83,7 @@ const DOMTasks = () => {
         const closeTaskButton = document.createElement('input');
         closeTaskButton.type = 'button';
         closeTaskButton.classList = 'close-task';
-        closeTaskButton.value = 'Close Task';
+        closeTaskButton.value = 'Close';
         taskFormFooter.appendChild(closeTaskButton);
 
         // add new task button
@@ -101,13 +102,18 @@ const DOMTasks = () => {
         content.appendChild(taskForm);
     }
 
+    function clearTaskFormFields() {
+        const fields = document.querySelectorAll('.task-form-property');
+        fields.forEach(field => field.value = '');
+    }
+
     function createTaskProperties(task) {
         const taskProperties = [];
         
         const mainProperties = document.createElement('div');
         const detailProperties = document.createElement('div');
-        mainProperties.classList.add('main-properties');
-        detailProperties.classList.add('detail-properties', 'hidden');
+        mainProperties.classList.add('main', 'properties');
+        detailProperties.classList.add('detail', 'properties', 'hidden');
 
         properties.forEach(property => {
             const propertyElement = document.createElement('div');
@@ -203,6 +209,12 @@ const DOMTasks = () => {
         const tasks = createTasks(tasklist);
         taskContent.innerHTML = '';
         displayTasks(tasks);
+
+        const addTaskButton = document.createElement('input');
+        addTaskButton.type = 'button';
+        addTaskButton.classList.add('add-task-popup');
+        addTaskButton.value = 'Add Task';
+        taskContent.appendChild(addTaskButton);
     }
 
     return {
@@ -211,6 +223,7 @@ const DOMTasks = () => {
         createFormProperties,
         createTaskForm,
         displayTaskForm,
+        clearTaskFormFields,
         createTaskProperties,
         createTaskElement,
         createTasks,
