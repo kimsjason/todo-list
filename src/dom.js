@@ -44,6 +44,19 @@ const DOMTasks = () => {
                 const propertyElement = document.createElement('textarea');
                 propertyElement.classList.add('task-form-property');
                 propertyContainer.appendChild(propertyElement);
+            } 
+            // give priority high, medium, low options
+            else if (property == 'priority') {
+                const propertyElement = document.createElement('select');
+                propertyElement.classList.add('task-form-property');
+
+                const options = ['Low', 'Medium', 'High'];
+                options.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.innerHTML = option;
+                    propertyElement.appendChild(optionElement);
+                });  
+                propertyContainer.appendChild(propertyElement);
             } else {
                 const propertyElement = document.createElement('input');
                 propertyElement.classList.add('task-form-property');
@@ -193,6 +206,9 @@ const DOMTasks = () => {
 
         // add detailed properties to task element (initially hidden)
         taskElement.appendChild(taskProperties[1]);
+
+        // add priority value as a task class
+        taskElement.classList.add(task.priority.toLowerCase());
 
         // store task object reference in html task element
         taskElement.taskObject = task;
