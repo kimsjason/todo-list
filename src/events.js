@@ -10,7 +10,7 @@ const Events = (dom, tasklist) => {
 
     let taskReference = Task();
 
-    // sidebar navigation events
+    // sidebar (navigation) events
     sidebar.addEventListener('click', function(e) {
         if (e.target && e.target.className == 'home') {
             headerName.innerHTML = 'Home';
@@ -31,7 +31,7 @@ const Events = (dom, tasklist) => {
         }
     });
 
-    // TASKFORM EVENTS - add task, update task, close task
+    // taskform events - add task, update task, close task
     taskForm.addEventListener('click', function(e) {
         const addTaskButton = document.querySelector('.update-task');
         if (e.target && e.target.className == 'add-task') { 
@@ -106,7 +106,7 @@ const Events = (dom, tasklist) => {
         }
     });
 
-    // task events - expand detail, remove task
+    // task content events - expand detail, 'add task' popup, edit task, remove task
     taskContent.addEventListener('click', function(e) {
         const taskFormHeader = document.querySelector('.task-form-header');
         if (e.target && e.target.className == 'main-content') {
@@ -116,26 +116,6 @@ const Events = (dom, tasklist) => {
             const addTaskButton = document.querySelector('.add-task');
             addTaskButton.value = 'Add Task';
             taskFormHeader.innerHTML = 'Add Task';
-        } else if (e.target && e.target.classList.contains('remove-task')) {
-            tasklist.removeTask(e.target.parentElement.parentElement.taskObject);
-            
-            switch (headerName.innerHTML) {
-                case 'Home':
-                    dom.showView(tasklist.getTasklist());
-                    break;
-                case 'Today':
-                    dom.showView(tasklist.getTodaysTasks());
-                    break;
-                case 'Upcoming':
-                    dom.showView(tasklist.getUpcomingTasks());
-                    break;
-                case 'Projects':
-                    console.log(tasklist.getProjects()['Daily Chores']);
-                    break;
-                default:
-                    // default - show specific projects
-                    dom.showView(tasklist.getProjects()[`${headerName.innerHTML}`]);
-            }
         } else if (e.target && e.target.classList.contains('edit-task')) {
             taskForm.style.display = 'flex';
             taskFormHeader.innerHTML = 'Edit Task';
@@ -158,11 +138,41 @@ const Events = (dom, tasklist) => {
             addTaskButton.classList.remove('add-task');
             addTaskButton.classList.add('update-task');
             addTaskButton.value = 'Update';
+        } else if (e.target && e.target.classList.contains('remove-task')) {
+            tasklist.removeTask(e.target.parentElement.parentElement.taskObject);
+            
+            switch (headerName.innerHTML) {
+                case 'Home':
+                    dom.showView(tasklist.getTasklist());
+                    break;
+                case 'Today':
+                    dom.showView(tasklist.getTodaysTasks());
+                    break;
+                case 'Upcoming':
+                    dom.showView(tasklist.getUpcomingTasks());
+                    break;
+                case 'Projects':
+                    console.log(tasklist.getProjects()['Daily Chores']);
+                    break;
+                default:
+                    // default - show specific projects
+                    dom.showView(tasklist.getProjects()[`${headerName.innerHTML}`]);
+            }
+        } else if (e.target && e.target.classList.contains('completion-status')) {
+            const task = e.target.parentElement.parentElement;
+            const taskProperties = task.querySelectorAll('.properties div');
+            if (e.target.checked) {
+                taskProperties.forEach(property => {
+                    property.style.textDecoration = 'line-through';
+                });
+            } else {
+                taskProperties.forEach(property => {
+                    property.style.textDecoration = 'none';
+                });
+            }
+            
         }
     });
-    
-
-
 }
 
 export { Events };
