@@ -70,7 +70,7 @@ body {
     flex-direction: column;
 }
 
-/* content */
+/* content - task header, task content, task form */
 .content {
     flex: 5;
     display: flex;
@@ -78,6 +78,7 @@ body {
     padding: 10% 15%;
 }
 
+/* task header */
 .tasks-header {
     display: flex;
     justify-content: space-between;
@@ -86,6 +87,7 @@ body {
     font-weight: 500;
 }
 
+/* task content */ 
 .task-content {
     padding: 0 10px;
 }
@@ -99,15 +101,22 @@ body {
 
 .task .material-icons {
     cursor: pointer;
+    color: rgb(168, 168, 168);
+}
+
+.task .material-icons:hover {
+    background-color: rgb(230, 230, 230);
+    border-radius: 5px;
 }
 
 .main-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
 }
 
-.main-properties {
+.main {
     flex: 1;
     display: flex;
     justify-content: space-between;
@@ -118,31 +127,36 @@ body {
     pointer-events: none;
 }
 
-.detail-properties {
+.detail {
     font-size: 14px;
+    padding: 10px 0;
 }
 
 label {
     display: flex;
+    padding: 5px 0;
+    font-weight: 500;
 }
 
 label div {
     padding: 0 10px;
+    font-weight: 300;
 }
 
 .task .hidden {
     display: none;
 }
 
-
 /* task form */
 .task-form {
+    display: none;
+    position: absolute;
     align-self: center;
-    display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 40%;
     border-radius: 5px;
     border: 1px solid gray;
+    background-color: white;
 }
 
 
