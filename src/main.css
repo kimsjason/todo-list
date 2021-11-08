@@ -7,6 +7,12 @@
 
 @font-face {
     font-family: Roboto;
+    src: url(./Roboto/Roboto-Regular.ttf);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Roboto;
     src: url(./Roboto/Roboto-Light.ttf);
     font-weight: 300;
 }
@@ -31,7 +37,7 @@ body {
     flex: 2;
     padding: 50px 25px;
     background-color: #f5f6f8;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .sidebar div {
@@ -84,7 +90,7 @@ body {
     justify-content: space-between;
     padding: 10px;
     border-bottom: 2px solid #4d9de0;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 /* task content */ 
@@ -159,10 +165,12 @@ label div {
     background-color: white;
 }
 
-
 .task-form-header {
     padding: 15px;
     border-bottom: 1px solid gray;
+    background-color: #006ba6;
+    color: white;
+    font-weight: 400;
 }
 
 .task-form-content {
@@ -176,8 +184,25 @@ label div {
     flex-direction: column;
 }
 
-.property-container.description input {
+.property-name {
+    font-weight: 400;
+}
+
+.task-form-property {
+    padding: 5px;
+    text-align: top left;
+    font-weight: 300;
+}
+
+.property-container input {
+    font-family: Roboto;
+    font-weight: 300;
+}
+
+.property-container.description textarea {
     height: 150px;
+    font-family: Roboto;
+    font-weight: 300;
 }
 
 .property-name {
@@ -187,7 +212,7 @@ label div {
 .task-form-property {
     height: 25px;
     border-radius: 5px;
-    border-color: lightgray;
+    border: 1px solid rgb(200, 200, 200);
 }
 
 .task-form-footer {
@@ -199,5 +224,30 @@ label div {
     width: 100px;
     height: 50px;
     margin: 15px;
+    border: none;
     border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid rgb(200, 200, 200);
 }
+
+.task-form-footer input:first-child {
+    background-color: white;
+    color: darkgray;
+}
+
+.task-form-footer input:first-child:hover {
+    background-color: rgb(200, 200, 200);
+    color: white;
+}
+
+.task-form-footer input:nth-child(2) {
+    background-color: #006ba6;
+    color: white;
+}
+
+.task-form-footer input:nth-child(2):hover {
+    background-color: white;
+    color: #006ba6;
+}
+

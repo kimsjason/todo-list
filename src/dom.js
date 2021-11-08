@@ -1,5 +1,5 @@
-import { add, format } from 'date-fns';
-import { Task } from './tasks';
+import {format } from 'date-fns';
+import { el } from 'date-fns/locale';
 
 const DOMTasks = () => {
     const sidebar = document.querySelector('.sidebar');
@@ -34,18 +34,33 @@ const DOMTasks = () => {
         properties.forEach(property => {
             const propertyContainer = document.createElement('div');
             const propertyName = document.createElement('div');
-            const propertyElement = document.createElement('input');
 
             propertyContainer.classList.add('property-container', property);
             propertyName.classList.add('property-name');
-            propertyElement.classList.add('task-form-property');
-
-            propertyName.innerHTML = property;
-            propertyElement.type = 'text';
-            propertyElement.name = property;
-
             propertyContainer.appendChild(propertyName);
-            propertyContainer.appendChild(propertyElement);
+
+            // give description a textarea
+            if (property == 'description') {
+                const propertyElement = document.createElement('textarea');
+                propertyElement.classList.add('task-form-property');
+                propertyContainer.appendChild(propertyElement);
+            } else {
+                const propertyElement = document.createElement('input');
+                propertyElement.classList.add('task-form-property');
+                propertyElement.type = 'text';
+                propertyElement.name = property;
+                propertyContainer.appendChild(propertyElement);
+            }
+
+            // capitalize property names
+            if (property == 'dueDate') {
+                propertyName.innerHTML = 'Due Date';
+            } else {
+                propertyName.innerHTML = property[0].toUpperCase() + property.slice(1);
+            }
+
+
+
 
             formProperties.push(propertyContainer);
         });
@@ -58,10 +73,9 @@ const DOMTasks = () => {
         const taskForm = document.createElement('div');
         taskForm.classList.add('task-form');
 
-        // task form header
+        // task form header - innerHTML filled out in events (add or edit task)
         const taskFormHeader = document.createElement('div');
         taskFormHeader.classList.add('task-form-header');
-        taskFormHeader.innerHTML = 'New Task';
         taskForm.appendChild(taskFormHeader);
 
         // task form content
@@ -112,6 +126,7 @@ const DOMTasks = () => {
         
         const mainProperties = document.createElement('div');
         const detailProperties = document.createElement('div');
+
         mainProperties.classList.add('main', 'properties');
         detailProperties.classList.add('detail', 'properties', 'hidden');
 

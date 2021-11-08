@@ -54,6 +54,7 @@ const Events = (dom, tasklist) => {
                 tasklist.addTask(task);
                 const dropdown = dom.createDropdown(tasklist.getProjects());
                 dom.displayDropdown(dropdown);
+                dom.clearTaskFormFields();
                 taskForm.style.display = 'none';
             }            
         } else if (e.target && e.target.classList.contains('update-task')) {
