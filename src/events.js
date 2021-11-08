@@ -7,8 +7,10 @@ const Events = (dom, tasklist) => {
     const headerName = document.querySelector('.header-name');
     const taskForm = document.querySelector('.task-form');
     const taskFormProperties = document.querySelectorAll('.task-form-property');
-
     let taskReference = Task();
+    
+    // initial task view (example tasks)
+    dom.showView(tasklist.getTasklist());
 
     // sidebar (navigation) events
     sidebar.addEventListener('click', function(e) {

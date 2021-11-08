@@ -7,12 +7,3 @@ import './main.css';
 const tasklist = Tasklist();
 const dom = DOMTasks();
 Events(dom, tasklist);
-
-
-
-dom.showView(tasklist.getTasklist());
-
-
-
-
-
