@@ -13,23 +13,31 @@ const Task = (title, description, dueDate, project, priority) => {
 }
 
 const Tasklist = () => {
-    const tasklist = [
+    const tasklist = [];
+    const projects = {};
+
+    const examples = [
         Task('Walk dog', 'Walk Ziggy before going to work', parseISO('2021-11-03'), 'Daily Chores', 'medium'),
         Task('Complete full stack Javascript', 'Complete The Odin Project full stack Javascript course by the end of the year', parseISO('2021-11-30'), 'Work', 'high'),
         Task('Feed cat', 'Feed Sweetie before studying', parseISO('2021-10-02'), 'Daily Chores', 'high'),
         Task('Review RegEx', 'Get familiar with regular expressions', parseISO('2021-08-20'), 'Work', 'low'),
         Task('Test', 'Testing the project feature', parseISO('2021-10-03'), 'Work', 'high')
     ];
-    
-    const projects = {};
 
-    tasklist.forEach(example => {
-        addProject(example.project, example);
+    examples.forEach(example => {
+        addTask(example);
     });
     
-
     function addTask(task) {
+        // add task to tasklist
         tasklist.push(task);
+
+        // add task to projects
+        if (projects[task.project]) {
+            projects[task.project].push(task);
+        } else {
+            projects[task.project] = [task];
+        }
     }
 
     function removeTask(task) {
@@ -43,8 +51,14 @@ const Tasklist = () => {
     }
 
     function updateTask(oldTask, newTask) {
+        // update task in tasklist
         const taskIndex = tasklist.indexOf(oldTask);
         tasklist.splice(taskIndex, 1, newTask)
+        
+        // update task in projects
+        const projectIndex = projects[oldTask.project].indexOf(oldTask);
+        projects[oldTask.project].splice(projectIndex, 1, newTask);
+
     }
 
     function getTasklist() {
@@ -67,11 +81,11 @@ const Tasklist = () => {
         return upcomingTasks;
     }
 
-    function addProject(project, task) {
+    function addProject(project) {
         if (projects[project]) {
-            projects[project].push(task);
+            console.log('That project already exists.')
         } else {
-            projects[project] = [task];
+            projects[project] = {};
         }
     }
 
