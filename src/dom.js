@@ -184,10 +184,6 @@ const DOMTasks = () => {
 
         return taskElement;
     }
-    
-    function editTaskElement() {
-
-    }
 
     function createTasks(tasklist) {
         const tasks = document.createElement('div');
