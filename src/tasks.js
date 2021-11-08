@@ -1,26 +1,24 @@
 import { isFuture, isToday, parseISO } from "date-fns";
 
 // in future - think about factory function inheritance
-const Task = (title, project, description, dueDate, priority, complete, hashtags) => {
+const Task = (title, description, dueDate, project, priority) => {
 
     return {
         title,
-        project,
         description,
         dueDate,
-        priority,
-        complete,
-        hashtags,
+        project,
+        priority
     }
 }
 
 const Tasklist = () => {
     const tasklist = [
-        Task('Walk dog', 'Daily Chores', 'Walk Ziggy before going to work', parseISO('2021-11-03'), 'medium','incomplete','#chores'),
-        Task('Complete full stack Javascript', 'Work', 'Complete The Odin Project full stack Javascript course by the end of the year', parseISO('2021-11-30'), 'high', 'incomplete', '#coding'),
-        Task('Feed cat', 'Daily Chores', 'Feed Sweetie before studying', parseISO('2021-10-02'), 'high', 'incomplete', '#chores'),
-        Task('Review RegEx', 'Work', 'Get familiar with regular expressions', parseISO('2021-08-20'), 'low', 'incomplete', '#coding'),
-        Task('Test', 'Work', 'Testing the project feature', parseISO('2021-10-03'), 'high', 'incomplete', '#ugh')
+        Task('Walk dog', 'Walk Ziggy before going to work', parseISO('2021-11-03'), 'Daily Chores', 'medium'),
+        Task('Complete full stack Javascript', 'Complete The Odin Project full stack Javascript course by the end of the year', parseISO('2021-11-30'), 'Work', 'high'),
+        Task('Feed cat', 'Feed Sweetie before studying', parseISO('2021-10-02'), 'Daily Chores', 'high'),
+        Task('Review RegEx', 'Get familiar with regular expressions', parseISO('2021-08-20'), 'Work', 'low'),
+        Task('Test', 'Testing the project feature', parseISO('2021-10-03'), 'Work', 'high')
     ];
     
     const projects = {};
@@ -35,8 +33,18 @@ const Tasklist = () => {
     }
 
     function removeTask(task) {
-        const index = tasklist.indexOf(task);
-        tasklist.splice(index, 1);
+        // remove task from tasklist
+        const taskIndex = tasklist.indexOf(task);
+        tasklist.splice(taskIndex, 1);
+
+        // remove task from projects
+        const projectIndex = projects[task.project].indexOf(task);
+        projects[task.project].splice(projectIndex, 1);
+    }
+
+    function updateTask(oldTask, newTask) {
+        const taskIndex = tasklist.indexOf(oldTask);
+        tasklist.splice(taskIndex, 1, newTask)
     }
 
     function getTasklist() {
@@ -81,6 +89,7 @@ const Tasklist = () => {
     return {
         addTask,
         removeTask,
+        updateTask,
         getTasklist,
         getTodaysTasks,
         getUpcomingTasks,
