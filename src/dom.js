@@ -89,6 +89,18 @@ const DOMTasks = () => {
         // task form header - innerHTML filled out in events (add or edit task)
         const taskFormHeader = document.createElement('div');
         taskFormHeader.classList.add('task-form-header');
+
+        // task form name
+        const taskFormName = document.createElement('div');
+        taskFormName.classList.add('task-form-name');
+        taskFormHeader.appendChild(taskFormName);
+
+        // close task form window
+        const closeWindow = document.createElement('span');
+        closeWindow.classList.add('material-icons', 'close-window');
+        closeWindow.innerHTML = 'close';
+
+        taskFormHeader.appendChild(closeWindow);
         taskForm.appendChild(taskFormHeader);
 
         // task form content
@@ -119,9 +131,9 @@ const DOMTasks = () => {
         addTaskButton.classList.add('add-task');
         addTaskButton.value = 'Add Task';
         taskFormFooter.appendChild(addTaskButton)
-        
         taskForm.appendChild(taskFormFooter);
 
+        console.log(taskForm);
         return taskForm;
     }
 

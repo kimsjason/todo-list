@@ -46,6 +46,11 @@ body {
     cursor: pointer;
 }
 
+.sidebar div:hover {
+    border-radius: 5px;
+    background-color:rgb(230, 230, 230);
+}
+
 .sidebar div.hidden {
     display: none;
 }
@@ -183,11 +188,17 @@ label div {
 }
 
 .task-form-header {
+    display: flex;
+    justify-content: space-between;
     padding: 15px;
     border-bottom: 1px solid gray;
     background-color: #006ba6;
     color: white;
     font-weight: 400;
+}
+
+.close-window {
+    cursor: pointer;
 }
 
 .task-form-content {

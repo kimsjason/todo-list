@@ -83,7 +83,8 @@ const Events = (dom, tasklist) => {
             taskForm.style.display = 'none';
             addTaskButton.classList.remove('update-task');
             addTaskButton.classList.add('add-task');
-        } else if (e.target && e.target.classList.contains('close-task')) {
+        } else if (e.target && (e.target.classList.contains('close-task') || 
+                                e.target.classList.contains('close-window'))) {
             // hide taskform display, add classes back, clear form fields
             taskForm.style.display = 'none';
             addTaskButton.classList.remove('update-task');
@@ -111,17 +112,17 @@ const Events = (dom, tasklist) => {
 
     // task content events - expand detail, 'add task' popup, edit task, remove task
     taskContent.addEventListener('click', function(e) {
-        const taskFormHeader = document.querySelector('.task-form-header');
+        const taskFormName = document.querySelector('.task-form-name');
         if (e.target && e.target.className == 'main-content') {
             e.target.nextElementSibling.classList.toggle('hidden');
         } else if (e.target && e.target.classList.contains('add-task-popup')) {
             taskForm.style.display = 'flex';
             const addTaskButton = document.querySelector('.add-task');
             addTaskButton.value = 'Add Task';
-            taskFormHeader.innerHTML = 'Add Task';
+            taskFormName.innerHTML = 'Add Task';
         } else if (e.target && e.target.classList.contains('edit-task')) {
             taskForm.style.display = 'flex';
-            taskFormHeader.innerHTML = 'Edit Task';
+            taskFormName.innerHTML = 'Edit Task';
 
             // fill in form fields with task property information
             const task = e.target.parentElement.parentElement;
