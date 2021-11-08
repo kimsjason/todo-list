@@ -42,7 +42,6 @@ body {
 
 .sidebar div {
     display: flex;
-    align-items: center;
     padding: 10px 0;
     cursor: pointer;
 }
@@ -71,9 +70,15 @@ body {
     color: #4d9de0;
 }
 
-.dropdown {
+.sidebar .dropdown {
     display: flex;
     flex-direction: column;
+    margin: 0 45px;
+    padding: 0;
+}
+
+.sidebar .dropdown-items {
+    padding: 5px 10px;
 }
 
 /* content - task header, task content, task form */
