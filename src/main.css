@@ -46,7 +46,12 @@ body {
     cursor: pointer;
 }
 
-.sidebar div:hover {
+.sidebar .home:hover,
+.sidebar .today:hover,
+.sidebar .upcoming:hover,
+.sidebar .projects:hover,
+.sidebar .project-container:hover,
+.sidebar .new-project-container:hover {
     border-radius: 5px;
     background-color:rgb(230, 230, 230);
 }
@@ -57,22 +62,26 @@ body {
 
 .sidebar div span {
     padding: 0 10px;
-    pointer-events: none;
 }
+
 #home {
     color: #3bb273;
+    pointer-events: none;
 }
 
 #star {
     color: #e1bc29;
+    pointer-events: none;
 }
 
 #upcoming {
     color: #e15554;
+    pointer-events: none;
 }
 
 #projects {
     color: #4d9de0;
+    pointer-events: none;
 }
 
 .sidebar .dropdown {
@@ -82,8 +91,37 @@ body {
     padding: 0;
 }
 
-.sidebar .dropdown-items {
+.sidebar .project-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar .project-name {
     padding: 5px 10px;
+}
+
+.sidebar .delete-project {
+    color: transparent;
+    cursor: pointer;
+}
+
+.sidebar .delete-project:hover {
+    color: rgb(122, 122, 122);
+}
+
+.sidebar .new-project-container {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .new-project-button {
+    color: rgb(122, 122, 122);
+    pointer-events: none;
+}
+
+.sidebar .new-project {
+    pointer-events: none;
 }
 
 /* content - task header, task content, task form */
@@ -98,10 +136,32 @@ body {
 .tasks-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 5px 25px;
     border-bottom: 2px solid rgb(230, 230, 230);
+}
+
+.header-text {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-weight: 400;
 }
 
+.header-buttons {
+    padding-left: 30px;
+}
+
+.add-task-popup {
+    cursor: pointer;
+    color: rgb(168, 168, 168);
+}
+
+.add-task-popup:hover {
+    border-radius: 5px;
+    background-color: rgb(230, 230, 230);
+}
 
 /* task content */ 
 .task-content {
@@ -177,6 +237,80 @@ label div {
 
 .task .hidden {
     display: none;
+}
+
+/* project form */
+.project-form {
+    display: none;
+    position: absolute;
+    align-self: center;
+    flex-direction: column;
+    width: 25%;
+    border-radius: 5px;
+    border: 1px solid gray;
+    background-color: white;
+}
+
+.project-form-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid gray;
+    background-color: #006ba6;
+    color: white;
+    font-weight: 400;
+}
+
+.project-form-content {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.project-form-label {
+    padding: 10px 0;
+    font-weight: 400;
+}
+
+.project-form-input {
+    height: 25px;
+    border-radius: 5px;
+    border: 1px solid rgb(200, 200, 200);
+}
+.project-form-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.project-form-footer input {
+    width: 100px;
+    height: 50px;
+    margin: 15px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid rgb(200, 200, 200);
+}
+
+.project-form-footer input:first-child {
+    background-color: white;
+    color: darkgray;
+}
+
+.project-form-footer input:first-child:hover {
+    background-color: rgb(200, 200, 200);
+    color: white;
+}
+
+.project-form-footer input:nth-child(2) {
+    background-color: #006ba6;
+    color: white;
+}
+
+.project-form-footer input:nth-child(2):hover {
+    background-color: white;
+    color: #006ba6;
 }
 
 /* task form */

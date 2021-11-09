@@ -85,14 +85,20 @@ const Tasklist = () => {
         if (projects[project]) {
             console.log('That project already exists.')
         } else {
-            projects[project] = {};
+            projects[project] = [];
         }
     }
 
     function removeProject(project) {
-        delete projects[project];
+        // remove projects tasks in tasklist array
+        const tasks = projects[project];    
+        tasks.forEach(task => {
+            const taskIndex = tasklist.indexOf(task);
+            tasklist.splice(taskIndex, 1);
+        });
 
-        // for later: remove tasks under this project in tasklist (for loop in this module with removeTask function?)
+        // then delete the project from projects
+        delete projects[project];
     }
 
     function getProjects() {
@@ -108,6 +114,7 @@ const Tasklist = () => {
         getTodaysTasks,
         getUpcomingTasks,
         addProject,
+        removeProject,
         getProjects,
     }
 }

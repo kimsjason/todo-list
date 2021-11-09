@@ -5,6 +5,7 @@ const Events = (dom, tasklist) => {
     const sidebar = document.querySelector('.sidebar');
     const content = document.querySelector('.content');
     const headerName = document.querySelector('.header-name');
+    const projectForm = document.querySelector('.project-form');
     const taskForm = document.querySelector('.task-form');
     const taskFormProperties = document.querySelectorAll('.task-form-property');
     let taskReference = Task();
@@ -26,11 +27,45 @@ const Events = (dom, tasklist) => {
         } else if (e.target && e.target.className == 'projects') {
             const dropdown = dom.createDropdown(tasklist.getProjects());
             dom.displayDropdown(dropdown);
-        } else if (e.target && e.target.className == 'dropdown-items') {
+        } else if (e.target && e.target.className == 'project-name') {
             headerName.innerHTML = e.target.innerHTML;
             dom.showView(tasklist.getProjects()[e.target.innerHTML]);
+        } else if (e.target && e.target.classList.contains('delete-project')) {
+            const projectName = e.target.previousSibling.innerHTML;
+            tasklist.removeProject(projectName);
+            const dropdown = dom.createDropdown(tasklist.getProjects());
+            dom.displayDropdown(dropdown);
+            dropdown.classList.remove('hidden');
+
+            switch (headerName.innerHTML) {
+                case 'Home':
+                    dom.showView(tasklist.getTasklist());
+                    break;
+                case 'Today':
+                    dom.showView(tasklist.getTodaysTasks());
+                    break;
+                case 'Upcoming':
+                    dom.showView(tasklist.getUpcomingTasks());
+                    break;
+            }
+        } else if (e.target && e.target.classList.contains('new-project-container')) {
+            projectForm.style.display = 'flex';
         }
     });
+
+    projectForm.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('add-project')) {
+            const projectName = projectForm.querySelector('.project-form-input').value;
+            tasklist.addProject(projectName);
+            const dropdown = dom.createDropdown(tasklist.getProjects());
+            dom.displayDropdown(dropdown);
+            dropdown.classList.remove('hidden');
+            projectForm.style.display = 'none'
+        } else if (e.target && 
+            (e.target.classList.contains('close-project') || e.target.classList.contains('close-window'))) {
+                projectForm.style.display = 'none';
+            }
+    })
 
     // taskform events - add task, update task, close task
     taskForm.addEventListener('click', function(e) {
@@ -154,9 +189,6 @@ const Events = (dom, tasklist) => {
                     break;
                 case 'Upcoming':
                     dom.showView(tasklist.getUpcomingTasks());
-                    break;
-                case 'Projects':
-                    // DELETE console.log(tasklist.getProjects()['Daily Chores']);
                     break;
                 default:
                     // default - show specific projects

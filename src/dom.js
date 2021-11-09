@@ -1,4 +1,4 @@
-import {format } from 'date-fns';
+import {add, format } from 'date-fns';
 import { el } from 'date-fns/locale';
 
 const DOMTasks = () => {
@@ -8,24 +8,117 @@ const DOMTasks = () => {
 
     const properties = ['title', 'description', 'dueDate', 'project', 'priority'];
     
+    displayProjectForm(createProjectForm());
     displayTaskForm(createTaskForm())
 
     function createDropdown(projects) {
         const dropdown = document.querySelector('.dropdown');
         dropdown.classList.toggle('hidden');
         dropdown.innerHTML = '';
+
         Object.keys(projects).forEach(project => {
-            const dropdownItems = document.createElement('div');
-            dropdownItems.classList.add('dropdown-items');
-            dropdownItems.innerHTML = project;
-            dropdown.appendChild(dropdownItems);
+            const projectContainer = document.createElement('div');
+            projectContainer.classList.add('project-container');
+            
+            const projectName = document.createElement('div');
+            projectName.classList.add('project-name');
+            projectName.innerHTML = project;
+
+            const deleteProject = document.createElement('span');
+            deleteProject.classList.add('material-icons', 'delete-project');
+            deleteProject.innerHTML = 'close';
+
+            projectContainer.appendChild(projectName);
+            projectContainer.appendChild(deleteProject);
+
+            dropdown.appendChild(projectContainer);
         });
+
+        const newProjectContainer = document.createElement('div');
+        newProjectContainer.classList.add('new-project-container');
+
+        const newProjectButton = document.createElement('span');
+        newProjectButton.classList.add('material-icons', 'new-project-button');
+        newProjectButton.innerHTML = 'add';
+
+        const newProject = document.createElement('div');
+        newProject.classList.add('new-project')
+        newProject.innerHTML = 'New Project';
+
+        newProjectContainer.appendChild(newProjectButton);
+        newProjectContainer.appendChild(newProject);
+
+        dropdown.appendChild(newProjectContainer);
 
         return dropdown;
     }
 
     function displayDropdown(dropdown) {
         sidebar.appendChild(dropdown);
+    }
+
+    function createProjectForm() {
+        // project form 
+        const projectForm = document.createElement('div');
+        projectForm.classList.add('project-form');
+
+        // project form header
+        const projectFormHeader = document.createElement('div');
+        projectFormHeader.classList.add('project-form-header');
+
+        const projectFormName = document.createElement('div');
+        projectFormName.classList.add('project-form-name');
+        projectFormName.innerHTML = 'New Project';
+        projectFormHeader.appendChild(projectFormName);
+
+        const closeWindow = document.createElement('span');
+        closeWindow.classList.add('material-icons', 'close-window');
+        closeWindow.innerHTML = 'close';
+
+        projectFormHeader.appendChild(closeWindow);
+
+        // project form content
+        const projectFormContent = document.createElement('div');
+        projectFormContent.classList.add('project-form-content');
+
+        const projectFormLabel = document.createElement('div');
+        projectFormLabel.classList.add('project-form-label');
+        projectFormLabel.innerHTML = 'Name:';
+         
+        const projectFormInput = document.createElement('input');
+        projectFormInput.classList.add('project-form-input');
+        projectFormInput.type = 'text';
+
+        projectFormContent.appendChild(projectFormLabel);
+        projectFormContent.appendChild(projectFormInput);
+
+        // project form footer
+        const projectFormFooter = document.createElement('div');
+        projectFormFooter.classList.add('project-form-footer');
+
+        const closeProjectButton = document.createElement('input');
+        closeProjectButton.type = 'button';
+        closeProjectButton.classList = 'close-project';
+        closeProjectButton.value = 'Close';
+        projectFormFooter.appendChild(closeProjectButton);
+
+        // add new task button
+        const addProjectButton = document.createElement('input');
+        addProjectButton.type = 'button';
+        addProjectButton.classList.add('add-project');
+        addProjectButton.value = 'Add Project';
+        projectFormFooter.appendChild(addProjectButton)
+
+        // append header, content, and footer to project form
+        projectForm.appendChild(projectFormHeader);
+        projectForm.appendChild(projectFormContent);
+        projectForm.appendChild(projectFormFooter);
+
+        return projectForm;
+    }
+
+    function displayProjectForm(projectForm) {
+        content.appendChild(projectForm);
     }
 
     function createFormProperties() {
