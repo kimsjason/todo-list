@@ -3,7 +3,7 @@ import { parseISO } from 'date-fns';
 
 const Events = (dom, tasklist) => {
     const sidebar = document.querySelector('.sidebar');
-    const taskContent = document.querySelector('.task-content');
+    const content = document.querySelector('.content');
     const headerName = document.querySelector('.header-name');
     const taskForm = document.querySelector('.task-form');
     const taskFormProperties = document.querySelectorAll('.task-form-property');
@@ -24,7 +24,6 @@ const Events = (dom, tasklist) => {
             headerName.innerHTML = 'Upcoming';
             dom.showView(tasklist.getUpcomingTasks());
         } else if (e.target && e.target.className == 'projects') {
-            headerName.innerHTML = 'Projects';
             const dropdown = dom.createDropdown(tasklist.getProjects());
             dom.displayDropdown(dropdown);
         } else if (e.target && e.target.className == 'dropdown-items') {
@@ -50,6 +49,7 @@ const Events = (dom, tasklist) => {
                     parseISO(`${dueDate[2]}-${dueDate[0]}-${dueDate[1]}`), // due date
                     taskFormProperties[3].value, // project
                     taskFormProperties[4].value, // priority
+                    false // completion status unchecked
                 );
                 tasklist.addTask(task);
                 const dropdown = dom.createDropdown(tasklist.getProjects());
@@ -111,7 +111,7 @@ const Events = (dom, tasklist) => {
     });
 
     // task content events - expand detail, 'add task' popup, edit task, remove task
-    taskContent.addEventListener('click', function(e) {
+    content.addEventListener('click', function(e) {
         const taskFormName = document.querySelector('.task-form-name');
         if (e.target && e.target.className == 'main-content') {
             e.target.nextElementSibling.classList.toggle('hidden');
@@ -156,7 +156,7 @@ const Events = (dom, tasklist) => {
                     dom.showView(tasklist.getUpcomingTasks());
                     break;
                 case 'Projects':
-                    console.log(tasklist.getProjects()['Daily Chores']);
+                    // DELETE console.log(tasklist.getProjects()['Daily Chores']);
                     break;
                 default:
                     // default - show specific projects
@@ -164,17 +164,22 @@ const Events = (dom, tasklist) => {
             }
         } else if (e.target && e.target.classList.contains('completion-status')) {
             const task = e.target.parentElement.parentElement;
+            taskReference = task.taskObject;
             const taskProperties = task.querySelectorAll('.properties div');
+
+            // check / uncheck completion status
             if (e.target.checked) {
+                //e.target.classList.add('completed');
                 taskProperties.forEach(property => {
-                    property.style.textDecoration = 'line-through';
+                    property.classList.add('completed');
                 });
             } else {
                 taskProperties.forEach(property => {
-                    property.style.textDecoration = 'none';
+                    property.classList.remove('completed');
                 });
             }
-            
+
+            taskReference.completionStatus = e.target.checked;
         }
     });
 }

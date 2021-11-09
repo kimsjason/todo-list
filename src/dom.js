@@ -133,7 +133,6 @@ const DOMTasks = () => {
         taskFormFooter.appendChild(addTaskButton)
         taskForm.appendChild(taskFormFooter);
 
-        console.log(taskForm);
         return taskForm;
     }
 
@@ -182,6 +181,8 @@ const DOMTasks = () => {
 
     function createTaskElement(task) {
         const taskProperties = createTaskProperties(task);
+        const mainProperties = taskProperties[0].children;
+        const detailProperties = taskProperties[1].children;
 
         // create element for new task
         const taskElement = document.createElement('div');
@@ -195,6 +196,18 @@ const DOMTasks = () => {
         const completionStatus = document.createElement('input');
         completionStatus.classList.add('completion-status');
         completionStatus.type = 'checkbox';
+        completionStatus.checked = task.completionStatus;
+
+        // add 'completed' class to tasks that are checked - class adds strikethrough styles to all task properties
+        if (completionStatus.checked) {
+            for (let i = 0; i < mainProperties.length; i++) {
+                mainProperties[i].classList.add('completed')
+            };
+            for (let i = 0; i < detailProperties.length; i++) {
+                detailProperties[i].classList.add('completed')
+            };
+        }
+
         mainContent.appendChild(completionStatus);
 
         // add main properties to container
@@ -248,12 +261,6 @@ const DOMTasks = () => {
         const tasks = createTasks(tasklist);
         taskContent.innerHTML = '';
         displayTasks(tasks);
-
-        const addTaskButton = document.createElement('input');
-        addTaskButton.type = 'button';
-        addTaskButton.classList.add('add-task-popup');
-        addTaskButton.value = 'Add Task';
-        taskContent.appendChild(addTaskButton);
     }
 
     return {

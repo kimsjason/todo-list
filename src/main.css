@@ -98,10 +98,10 @@ body {
 .tasks-header {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
     border-bottom: 2px solid rgb(230, 230, 230);
     font-weight: 400;
 }
+
 
 /* task content */ 
 .task-content {
@@ -125,6 +125,10 @@ body {
 
 .task.low {
     border-left: 10px solid green;
+}
+
+.completed {
+    text-decoration: line-through;
 }
 
 .task .material-icons {

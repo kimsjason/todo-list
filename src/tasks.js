@@ -1,14 +1,15 @@
 import { isFuture, isToday, parseISO } from "date-fns";
 
 // in future - think about factory function inheritance
-const Task = (title, description, dueDate, project, priority) => {
+const Task = (title, description, dueDate, project, priority, completionStatus) => {
 
     return {
         title,
         description,
         dueDate,
         project,
-        priority
+        priority,
+        completionStatus
     }
 }
 
@@ -58,7 +59,6 @@ const Tasklist = () => {
         // update task in projects
         const projectIndex = projects[oldTask.project].indexOf(oldTask);
         projects[oldTask.project].splice(projectIndex, 1, newTask);
-
     }
 
     function getTasklist() {
