@@ -242,10 +242,14 @@ label div {
 /* project form */
 .project-form {
     display: none;
-    position: absolute;
+    position: fixed;
     align-self: center;
     flex-direction: column;
     width: 25%;
+    top: 50%;
+    left: 50%;
+    margin-top: -114.5px;
+    margin-left: -212.25px;
     border-radius: 5px;
     border: 1px solid gray;
     background-color: white;
@@ -274,8 +278,11 @@ label div {
 
 .project-form-input {
     height: 25px;
-    border-radius: 5px;
     border: 1px solid rgb(200, 200, 200);
+    border-radius: 5px;
+    padding: 5px;
+    font-family: Roboto;
+    font-weight: 300;
 }
 .project-form-footer {
     display: flex;
@@ -316,10 +323,14 @@ label div {
 /* task form */
 .task-form {
     display: none;
-    position: absolute;
+    position: fixed;
     align-self: center;
     flex-direction: column;
     width: 40%;
+    top: 50%;
+    left: 50%;
+    margin-top: -305px;
+    margin-left: -340px;
     border-radius: 5px;
     border: 1px solid gray;
     background-color: white;
@@ -356,7 +367,6 @@ label div {
 
 .task-form-property {
     padding: 5px;
-    text-align: top left;
     font-weight: 300;
 }
 
