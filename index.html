@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <title>Todo List Application</title>
+        <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/css/datepicker.min.css">
+    <script defer src="main.js"></script></head>
+    <body>
+        <div class='sidebar'>
+            <div class='home'><span class='material-icons' id='home'>home</span>Home</div>
+            <div class='today'><span class='material-icons' id='star'>star</span>Today</div>
+            <div class='upcoming'><span class='material-icons' id='upcoming'>date_range</span>Upcoming</div>
+            <div class='projects'><span class='material-icons' id='projects'>expand_more</span>
+                Projects
+                <div class='dropdown hidden'></div>
+            </div>
+        </div>
+        <div class='content'>
+            <div class='tasks-header'>
+                <div class='header-text'>
+                    <div class='header-name'>Home</div>
+                    <div class='header-date'>Due Date</div>
+                </div>
+                <div class='header-buttons'>
+                    <span class='material-icons add-task-popup'>add</span>
+                </div>
+            </div>
+            <div class='task-content'>
+            </div>
+        </div>
+        
+    </body>
+</html>
