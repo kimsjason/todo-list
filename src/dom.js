@@ -1,5 +1,5 @@
-import {add, format } from 'date-fns';
-import { el } from 'date-fns/locale';
+import { format } from 'date-fns';
+import { Datepicker } from 'vanillajs-datepicker';
 
 const DOMTasks = () => {
     const sidebar = document.querySelector('.sidebar');
@@ -138,6 +138,16 @@ const DOMTasks = () => {
                 propertyElement.classList.add('task-form-property');
                 propertyContainer.appendChild(propertyElement);
             } 
+            // give dueDate a date-picker calendar
+            else if (property == 'dueDate') {
+                const propertyElement = document.createElement('input');
+                propertyElement.classList.add('task-form-property');
+                propertyElement.type = 'text';
+                const datepicker = new Datepicker(propertyElement)
+                
+                console.log(propertyElement);
+                propertyContainer.appendChild(propertyElement);
+            }
             // give priority high, medium, low options
             else if (property == 'priority') {
                 const propertyElement = document.createElement('select');
